@@ -18,8 +18,20 @@ export const manifest = setupManifest({
   volumes: ['main'],
   images: {
     'hello-world': {
+      arch: ['x86_64'],
       source: {
-        dockerTag: 'start9/hello-world',
+        //dockerTag: 'start9/hello-world',        
+        dockerBuild: {          
+          dockerfile: 'Dockerfile',
+        },
+      },
+    },
+    'hello-world-aarch64': {
+      arch: ['aarch64'],
+      source: {
+        dockerBuild: {          
+          dockerfile: 'Dockerfile.aarch64',
+        },
       },
     },
   },

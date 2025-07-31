@@ -1,3 +1,4 @@
+import os from 'os'
 import { sdk } from './sdk'
 import { uiPort } from './utils'
 
@@ -9,6 +10,8 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
    */
   console.info('Starting Hello World!')
 
+  const imageId = os.arch() == 'x64' ? 'hello-world' : 'hello-world-aarch64'
+
   /**
    * ======================== Daemons ========================
    *
@@ -19,7 +22,7 @@ export const main = sdk.setupMain(async ({ effects, started }) => {
   return sdk.Daemons.of(effects, started).addDaemon('primary', {
     subcontainer: await sdk.SubContainer.of(
       effects,
-      { imageId: 'hello-world' },
+      { imageId: imageId },
       sdk.Mounts.of().mountVolume({
         volumeId: 'main',
         subpath: null,
